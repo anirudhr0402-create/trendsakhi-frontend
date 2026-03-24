@@ -1,11 +1,11 @@
-import Navbar from "../components/Navbar";
 import HeroSlider from "../components/HeroSlider";
+import LuxurySections from "../components/LuxurySections";
 
-export default function Home(){
-return(
-<div className="bg-gray-50">
-<Navbar/>
-<HeroSlider/>
-</div>
-)
+export default function Home() {
+  return (
+    <div className="pt-20 bg-luxuryBg min-h-screen">
+      <HeroSlider />
+      <LuxurySections />
+    </div>
+  );
 }

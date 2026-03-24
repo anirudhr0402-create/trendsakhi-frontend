@@ -1,71 +1,78 @@
-import {useState} from "react";
-import {Search,Heart,ShoppingCart} from "lucide-react";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-export default function Navbar(){
-const [open,setOpen]=useState(null);
+export default function Navbar() {
+  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
-return(
-<div className="bg-white shadow px-10 py-4 flex justify-between items-center relative">
+  return (
+    <div className="fixed top-0 left-0 w-full h-20 bg-white/70 backdrop-blur-md border-b border-borderLight z-50 px-10 flex justify-between items-center">
 
-<h1 className="text-2xl font-bold text-pistadark">TrendSakhi</h1>
+      {/* LOGO */}
+      <h1
+        className="text-2xl font-bold text-pistaDark cursor-pointer"
+        onClick={() => navigate("/")}
+      >
+        TrendSakhi
+      </h1>
 
-<div className="flex gap-8 font-medium text-gray-700">
+      {/* MENU */}
+      <div className="flex gap-8 items-center">
 
-<div onMouseEnter={()=>setOpen('home')} onMouseLeave={()=>setOpen(null)}>Home</div>
+        <Link to="/" className="hover:text-pistaDark">Home</Link>
 
-<div onMouseEnter={()=>setOpen('products')} onMouseLeave={()=>setOpen(null)} className="relative cursor-pointer">
-Products
+        {/* PRODUCTS */}
+        <div
+          className="relative"
+          onMouseEnter={() => setOpen(true)}
+          onMouseLeave={() => setOpen(false)}
+        >
+          <div className="cursor-pointer hover:text-pistaDark">
+            Products
+          </div>
 
-{open==='products' && (
-<div className="absolute left-0 top-8 w-[600px] bg-white shadow-xl p-6 grid grid-cols-3 gap-6 z-50">
-<div>
-<h3 className="font-semibold mb-2">Clothing</h3>
-<p>Dresses</p><p>Tops</p><p>Ethnic Wear</p><p>Winter</p>
-</div>
-<div>
-<h3 className="font-semibold mb-2">Accessories</h3>
-<p>Bags</p><p>Jewellery</p><p>Watches</p><p>Belts</p>
-</div>
-<div>
-<img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b" className="rounded-xl"/>
-</div>
-</div>
-)}
-</div>
+          {/* MEGA MENU */}
+          <div
+            className={`absolute left-1/2 -translate-x-1/2 top-full
+            bg-whiteSoft rounded-2xl p-8 grid grid-cols-4 gap-8 z-50
+            w-[800px] max-w-[90vw]
+            shadow-[0_20px_60px_rgba(0,0,0,0.15)]
+            transition-all duration-300
+            ${open
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 -translate-y-2 pointer-events-none"
+            }`}
+          >
 
-<div onMouseEnter={()=>setOpen('coupons')} onMouseLeave={()=>setOpen(null)} className="relative cursor-pointer">
-Coupons
+            <div>
+              <h3 className="font-bold mb-3">Ethnic</h3>
+              <p onClick={()=>navigate('/products/Kurtis')} className="cursor-pointer hover:text-pistaDark">Kurtis</p>
+              <p onClick={()=>navigate('/products/Sarees')} className="cursor-pointer hover:text-pistaDark">Sarees</p>
+              <p onClick={()=>navigate('/products/Lehangas')} className="cursor-pointer hover:text-pistaDark">Lehangas</p>
+            </div>
 
-{open==='coupons' && (
-<div className="absolute left-0 top-8 w-[400px] bg-white shadow-xl p-6 grid grid-cols-2 gap-4 z-50">
-<div className="bg-pista p-4 rounded">
-<h4 className="font-semibold">FLAT50</h4>
-<p>Flat 50% OFF</p>
-</div>
-<div className="bg-pista p-4 rounded">
-<h4 className="font-semibold">B1G1</h4>
-<p>Buy 1 Get 1</p>
-</div>
-<div className="bg-pista p-4 rounded">
-<h4 className="font-semibold">NEW20</h4>
-<p>20% New User</p>
-</div>
-</div>
-)}
-</div>
+            <div>
+              <h3 className="font-bold mb-3">Trending</h3>
+              <p onClick={()=>navigate('/products/New designed Sarees')} className="cursor-pointer hover:text-pistaDark">New Designs</p>
+              <p onClick={()=>navigate('/products/Matching sets')} className="cursor-pointer hover:text-pistaDark">Matching Sets</p>
+            </div>
 
-<div>Contact</div>
+            <div>
+              <h3 className="font-bold mb-3">Accessories</h3>
+              <p onClick={()=>navigate('/products/Bags')} className="cursor-pointer hover:text-pistaDark">Bags</p>
+              <p onClick={()=>navigate('/products/Accessories')} className="cursor-pointer hover:text-pistaDark">Accessories</p>
+            </div>
+          </div>
+        </div>
 
-</div>
+        <div onClick={() => navigate("/coupons")} className="cursor-pointer hover:text-pistaDark">
+          Coupons
+        </div>
 
-<div className="flex items-center gap-5">
-<div className="flex items-center border rounded-full px-3 py-1">
-<Search size={16}/>
-<input className="outline-none px-2 text-sm" placeholder="Search..."/>
-</div>
-<Heart/>
-<ShoppingCart/>
-</div>
-
-</div>
-)}
+        <div onClick={() => navigate("/contact")} className="cursor-pointer hover:text-pistaDark">
+          Contact
+        </div>
+      </div>
+    </div>
+  );
+}
